@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { postRequestApi } from "../../services/common-service";
 
-const SignUp = ({ handleLoggedIn }) => {
+const SignUp = ({ handleLoggedIn, setNameProfession }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [profession, setProfession] = useState("");
-
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
 
   const handleChange = async () => {
     let result = await postRequestApi("/auth/signUp", {
@@ -19,8 +15,8 @@ const SignUp = ({ handleLoggedIn }) => {
       profession
     });
     if (result?.data?.payload?.token) {
-      localStorage.setItem("token", result.data.payload.token);
       handleLoggedIn(true);
+      setNameProfession({name: result.data.payload.name, profession: result.data.payload.profession, token: result.data.payload.token, email: result.data.payload.email})
     }
   };
   return (
@@ -53,29 +49,29 @@ const SignUp = ({ handleLoggedIn }) => {
             Profession:
           </label>
           <br />
-          <div class="form-check form-check-inline">
+          <div className="form-check form-check-inline">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="radio"
               id="profession1"
               name="profession"
               value="contractor"
               onChange={(e) => setProfession(e.target.value)}
             />
-            <label class="form-check-label" for="profession1">
+            <label className="form-check-label" for="profession1">
               Contractor
             </label>
           </div>
-          <div class="form-check form-check-inline">
+          <div className="form-check form-check-inline">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="radio"
               id="profession2"
               name="profession"
               value="transporter"
               onChange={(e) => setProfession(e.target.value)}
             />
-            <label class="form-check-label" for="profession2">
+            <label className="form-check-label" for="profession2">
               Transporter
             </label>
           </div>

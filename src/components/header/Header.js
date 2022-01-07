@@ -20,6 +20,7 @@ const Header = ({ isLoggedIn, handleIsloggedin, showLogIn }) => {
                 type="button"
                 class="btn btn-warning"
                 onClick={() => {
+                  localStorage.clear();
                   handleIsloggedin(false);
                 }}
               >
